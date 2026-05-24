@@ -1,0 +1,49 @@
+CREATE TABLE IF NOT EXISTS tests (
+    id SERIAL PRIMARY KEY,
+    mode VARCHAR(20) NOT NULL,
+    prompt TEXT,
+    audio_path VARCHAR(500) NOT NULL,
+    duration_seconds FLOAT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS transcripts (
+    id SERIAL PRIMARY KEY,
+    test_id INTEGER UNIQUE NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+    text TEXT NOT NULL,
+    language VARCHAR(20) DEFAULT 'en',
+    segments JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS scores (
+    id SERIAL PRIMARY KEY,
+    test_id INTEGER UNIQUE NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+    grammar FLOAT NOT NULL,
+    fluency FLOAT NOT NULL,
+    vocabulary FLOAT NOT NULL,
+    communication FLOAT NOT NULL,
+    confidence FLOAT NOT NULL,
+    overall FLOAT NOT NULL,
+    metrics JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS feedback (
+    id SERIAL PRIMARY KEY,
+    test_id INTEGER UNIQUE NOT NULL REFERENCES tests(id) ON DELETE CASCADE,
+    strengths JSONB NOT NULL,
+    improvements JSONB NOT NULL,
+    roadmap JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS roadmap_progress (
+    id SERIAL PRIMARY KEY,
+    test_id INTEGER REFERENCES tests(id) ON DELETE CASCADE,
+    week_number INTEGER NOT NULL,
+    title VARCHAR(160) NOT NULL,
+    completed BOOLEAN DEFAULT FALSE,
+    notes TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
