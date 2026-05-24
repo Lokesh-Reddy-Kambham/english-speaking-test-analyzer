@@ -8,6 +8,16 @@ Frontend: https://frontend-seven-gules-39.vercel.app
 
 Note: analysis endpoints require the backend to be running or deployed and configured with `VITE_API_URL`.
 
+## Render Deployment
+
+This repo includes a `render.yaml` Blueprint for deploying the FastAPI backend and a Render Postgres database.
+
+1. Open https://dashboard.render.com/blueprints.
+2. Create a new Blueprint from this GitHub repository.
+3. Render will create `speak-meter-backend` and `speak-meter-db`.
+4. After the backend deploys, copy its `https://...onrender.com` URL.
+5. In Vercel, set `VITE_API_URL` to `https://your-render-backend.onrender.com/api` and redeploy the frontend.
+
 ## What It Does
 
 - Records speech in the browser or accepts an uploaded audio file.
