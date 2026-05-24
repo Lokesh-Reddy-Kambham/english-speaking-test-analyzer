@@ -14,8 +14,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade "pip<26" "setuptools<81" wheel \
+    && pip install --no-cache-dir --no-build-isolation -r requirements.txt
 
 COPY app ./app
 RUN mkdir -p uploads
