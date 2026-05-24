@@ -2,6 +2,12 @@
 
 A lightweight MVP for analyzing English speaking ability without paid AI APIs or user accounts. Users open the app, record or upload speech, get a transcript, view rule-based scores, receive feedback, and generate a personalized roadmap.
 
+## Live Demo
+
+Frontend: https://frontend-seven-gules-39.vercel.app
+
+Note: analysis endpoints require the backend to be running or deployed and configured with `VITE_API_URL`.
+
 ## What It Does
 
 - Records speech in the browser or accepts an uploaded audio file.
